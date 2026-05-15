@@ -1,19 +1,13 @@
 import { Link } from 'react-router-dom'
 import { useStore } from '@/store'
-
-const HOURS_PER_MONTH = 8760 / 12
+import { isVisibleByAge } from './peopleFilter'
 
 export default function PeopleList() {
   const people = useStore((state) => state.people)
   const minimumAgeInMonths = useStore((state) => state.minimumAgeInMonths)
 
   const visible = people
-    .filter(
-      (person) =>
-        minimumAgeInMonths === null ||
-        person.ageInHours === null ||
-        person.ageInHours >= minimumAgeInMonths * HOURS_PER_MONTH,
-    )
+    .filter((person) => isVisibleByAge(person, minimumAgeInMonths))
     .map((person) => ({
       ...person,
       ageInYears:
