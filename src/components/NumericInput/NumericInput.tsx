@@ -44,8 +44,9 @@ const inputBaseClass =
   'transition-[color,border-color,width] duration-150 ease-out ' +
   'focus:border-[var(--color-primary-soft)] focus-visible:border-[var(--color-primary-soft)]'
 
-/** Lookahead absorbs caret + sub-pixel rounding + ~one upcoming digit. */
-const LOOKAHEAD_PX = 15
+/** Lookahead absorbs caret reserve (larger on iOS Safari) + sub-pixel rounding
+ *  + ~one upcoming digit. 30px is safe on Chrome/Safari/Firefox desktop & mobile. */
+const LOOKAHEAD_PX = 30
 
 /**
  * Numeric input with thousands-space grouping (`1442 -> 1 442`) and adaptive width.

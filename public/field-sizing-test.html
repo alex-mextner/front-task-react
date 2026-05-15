@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>field-sizing: content — clip test</title>
+<style>
+  body { font: 16px/1.4 system-ui, sans-serif; max-width: 480px; margin: 2rem auto; padding: 0 1rem; }
+  section { margin: 1.5rem 0; padding: 1rem; border: 1px solid #ddd; border-radius: 8px; }
+  h2 { font-size: 14px; margin: 0 0 0.5rem; color: #555; }
+  .note { font-size: 13px; color: #888; margin-top: 0.5rem; }
+
+  /* All inputs share the same minimal box geometry. */
+  input {
+    font: 500 18px/1.21 system-ui, sans-serif;
+    color: #1e0d4c;
+    padding: 8px 16px 8px 8px;
+    border: 1px solid #cfc9de;
+    border-radius: 6px;
+    outline: none;
+    min-width: 72px;
+  }
+  input:focus { border-color: #906fee; caret-color: #3c06d6; }
+
+  .fs   { field-sizing: content; }
+  .fs-t { field-sizing: content; transition: width 150ms ease-out; }
+</style>
+</head>
+<body>
+  <h1>field-sizing: content — clipping test</h1>
+  <p>Type <code>8888</code> in each box. Watch if the leading <strong>8</strong> gets cut on the left edge while typing or after focus.</p>
+
+  <section>
+    <h2>A · plain input (no field-sizing)</h2>
+    <input type="text" inputmode="numeric" placeholder="0">
+    <div class="note">Fixed width 72px (min-width). Reference baseline.</div>
+  </section>
+
+  <section>
+    <h2>B · field-sizing: content (no transition)</h2>
+    <input class="fs" type="text" inputmode="numeric" placeholder="0">
+    <div class="note">Native intrinsic sizing. No animation.</div>
+  </section>
+
+  <section>
+    <h2>C · field-sizing: content + transition: width</h2>
+    <input class="fs-t" type="text" inputmode="numeric" placeholder="0">
+    <div class="note">Same as B with width transition. In Chrome 129+ needs <code>interpolate-size: allow-keywords</code> on an ancestor to animate.</div>
+  </section>
+
+  <section>
+    <h2>D · field-sizing: content + interpolate-size + transition</h2>
+    <div style="interpolate-size: allow-keywords;">
+      <input class="fs-t" type="text" inputmode="numeric" placeholder="0">
+    </div>
+    <div class="note">Width should animate smoothly in supporting browsers.</div>
+  </section>
+
+  <p class="note">Browser: <span id="ua"></span></p>
+  <script>document.getElementById('ua').textContent = navigator.userAgent;</script>
+</body>
+</html>
