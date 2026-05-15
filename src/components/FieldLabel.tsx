@@ -14,7 +14,7 @@ export default function FieldLabel({
   return (
     <label
       {...rest}
-      className={`block font-[var(--font-display)] text-base leading-[15px] tracking-[0.02em] text-[var(--color-text-primary)] ${className ?? ''}`}
+      className={`block font-display text-base leading-[15px] tracking-[0.02em] text-[var(--color-text-primary)] ${className ?? ''}`}
     />
   )
 }
