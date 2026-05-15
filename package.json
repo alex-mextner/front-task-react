@@ -14,25 +14,31 @@
     "@tailwindcss/vite": "^4.1.18",
     "react": "^19.1.0",
     "react-dom": "^19.1.0",
+    "react-number-format": "^5.4.5",
     "react-router-dom": "^7.6.1",
     "tailwindcss": "^4.1.18",
     "zustand": "^5.0.4"
   },
   "devDependencies": {
     "@eslint/js": "^9.28.0",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.2",
+    "@testing-library/user-event": "^14.6.1",
     "@tsconfig/node22": "^22.0.5",
     "@types/node": "^22.19.6",
     "@types/react": "^19.1.5",
     "@types/react-dom": "^19.1.5",
     "@vitejs/plugin-react": "^4.5.2",
     "eslint": "^9.28.0",
-    "stylelint-standard": "^1.2.3",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.20",
     "globals": "^16.2.0",
+    "jsdom": "^29.1.1",
     "prettier": "^3.5.3",
+    "stylelint-standard": "^1.2.3",
     "typescript": "~5.9.3",
     "typescript-eslint": "^8.33.1",
-    "vite": "^7.3.1"
+    "vite": "^7.3.1",
+    "vitest": "^4.1.6"
   }
 }
