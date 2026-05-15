@@ -17,7 +17,7 @@ export default function Settings() {
       <div className="flex flex-col gap-3">
         <label
           htmlFor="min-age-input"
-          className="block text-sm font-bold tracking-wide"
+          className="block text-base leading-[15px] tracking-[0.02em] text-[var(--color-text-primary)]"
           style={{ fontFamily: 'var(--font-display)' }}
         >
           MINIMUM AGE
