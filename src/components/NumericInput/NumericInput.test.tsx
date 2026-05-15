@@ -194,9 +194,10 @@ describe('NumericInput', () => {
     expect(input).toHaveAttribute('inputmode', 'decimal')
   })
 
-  it('applies the field-sizing utility for adaptive width', () => {
-    const { input } = setup(null)
-    expect(input.className).toMatch(/\[field-sizing:content\]/)
+  it('applies an inline width sized to the content via the hidden sizer', () => {
+    const { input } = setup(1234)
+    // The JS sizer measures the formatted string and sets inline width.
+    expect(input.style.width).toMatch(/^\d+px$/)
   })
 
   it('appends custom className', () => {
