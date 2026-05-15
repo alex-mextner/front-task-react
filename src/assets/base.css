@@ -13,4 +13,7 @@
 
 body {
   font-family: var(--font-body);
+  /* Enable interpolation between length and intrinsic size values, so
+     `transition: width` works on inputs sized via `field-sizing: content`. */
+  interpolate-size: allow-keywords;
 }

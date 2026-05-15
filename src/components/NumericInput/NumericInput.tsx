@@ -1,12 +1,5 @@
-import {
-  useLayoutEffect,
-  useRef,
-  useState,
-  type ComponentPropsWithoutRef,
-  type CSSProperties,
-  type Ref,
-} from 'react'
-import { NumericFormat, numericFormatter } from 'react-number-format'
+import type { ComponentPropsWithoutRef, CSSProperties, Ref } from 'react'
+import { NumericFormat } from 'react-number-format'
 
 export type NumericInputProps = Omit<
   ComponentPropsWithoutRef<'input'>,
@@ -30,22 +23,22 @@ export type NumericInputProps = Omit<
   ref?: Ref<HTMLInputElement>
 }
 
-// Transition (color/border/width) is set inline because width animation is
-// direction-aware: instant on growth (no leading-digit clip), 150ms on shrink.
+// Adaptive width is native: `field-sizing: content` makes the input grow to
+// its content's intrinsic size. `interpolate-size: allow-keywords` (set on
+// body) lets us animate the width transition between length and intrinsic
+// values. Pure CSS, no JS sizer, no scroll-clip on keystroke.
 const inputBaseClass =
-  'h-11 rounded-md border border-[var(--color-border-default)] bg-transparent ps-2 pe-4 py-2 ' +
+  '[field-sizing:content] h-11 rounded-md border border-[var(--color-border-default)] bg-transparent ' +
+  'ps-2 pe-4 py-2 ' +
   'font-body font-medium text-lg leading-[21.78px] text-[var(--color-text-primary)] ' +
   'text-start outline-none ' +
   'placeholder:text-[var(--color-text-primary)] placeholder:opacity-40 ' +
   'caret-[var(--color-primary)] ' +
+  'transition-[color,border-color,width] duration-150 ease-out ' +
   'focus:border-[var(--color-primary-soft)] focus-visible:border-[var(--color-primary-soft)]'
 
 /**
  * Numeric input with thousands-space grouping (`1442 -> 1 442`) and adaptive width.
- *
- * Width is driven by an off-screen `<span>` that mirrors font and padding,
- * so it stays correct across browsers (including Firefox, which does not yet
- * support `field-sizing: content`) and never jitters on keystroke reflow.
  *
  * @example
  * ```tsx
@@ -60,75 +53,33 @@ export default function NumericInput({
   allowNegative = false,
   minWidthPx,
   maxWidthPx,
-  placeholder,
   className,
   style,
   ref,
   ...rest
 }: NumericInputProps) {
-  const sizerRef = useRef<HTMLSpanElement>(null)
-  const previousWidth = useRef<number | null>(null)
-  const [measuredWidth, setMeasuredWidth] = useState<number | null>(null)
-  const [widthTransition, setWidthTransition] = useState<string>('none')
-
-  const formattedValue =
-    value === null
-      ? ''
-      : numericFormatter(String(value), {
-          thousandSeparator: ' ',
-          decimalScale: allowDecimal ? undefined : 0,
-          allowNegative,
-        })
-
-  const sizerText = formattedValue || (placeholder ?? '')
-
-  useLayoutEffect(() => {
-    if (!sizerRef.current) return
-    // +4px safety buffer absorbs the caret pixel and sub-pixel rounding so
-    // the leading digit never gets scroll-clipped on focus.
-    const next = sizerRef.current.offsetWidth + 4
-    const prev = previousWidth.current
-    // Grow instantly to keep the value visible; shrink smoothly for visual
-    // continuity. Direction-agnostic, works in LTR and RTL.
-    setWidthTransition(prev !== null && next < prev ? 'width 150ms ease-out' : 'none')
-    setMeasuredWidth(next)
-    previousWidth.current = next
-  }, [sizerText])
-
   const widthStyle: CSSProperties = {
-    ...(measuredWidth !== null && { width: `${measuredWidth}px` }),
     ...(minWidthPx !== undefined && { minWidth: `${minWidthPx}px` }),
     ...(maxWidthPx !== undefined && { maxWidth: `${maxWidthPx}px` }),
-    transition: `color 150ms ease-out, border-color 150ms ease-out, ${widthTransition}`,
   }
 
   return (
-    <>
-      <span
-        ref={sizerRef}
-        aria-hidden
-        className={`${inputBaseClass} pointer-events-none invisible absolute -left-[9999px] top-0 whitespace-pre`}
-      >
-        {sizerText || ' '}
-      </span>
-      <NumericFormat
-        {...rest}
-        placeholder={placeholder}
-        getInputRef={ref}
-        value={value === null ? '' : value}
-        onValueChange={({ floatValue }) =>
-          onChange(floatValue === undefined ? null : floatValue)
-        }
-        thousandSeparator=" "
-        decimalScale={allowDecimal ? undefined : 0}
-        allowNegative={allowNegative}
-        isAllowed={({ value: rawString }) =>
-          rawString.replace(/\D/g, '').length <= maxDigits
-        }
-        inputMode={allowDecimal ? 'decimal' : 'numeric'}
-        style={{ ...widthStyle, ...style }}
-        className={`${inputBaseClass} ${className ?? ''}`}
-      />
-    </>
+    <NumericFormat
+      {...rest}
+      getInputRef={ref}
+      value={value === null ? '' : value}
+      onValueChange={({ floatValue }) =>
+        onChange(floatValue === undefined ? null : floatValue)
+      }
+      thousandSeparator=" "
+      decimalScale={allowDecimal ? undefined : 0}
+      allowNegative={allowNegative}
+      isAllowed={({ value: rawString }) =>
+        rawString.replace(/\D/g, '').length <= maxDigits
+      }
+      inputMode={allowDecimal ? 'decimal' : 'numeric'}
+      style={{ ...widthStyle, ...style }}
+      className={`${inputBaseClass} ${className ?? ''}`}
+    />
   )
 }
