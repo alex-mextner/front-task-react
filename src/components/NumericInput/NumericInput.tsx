@@ -30,13 +30,14 @@ export type NumericInputProps = Omit<
   ref?: Ref<HTMLInputElement>
 }
 
+// Transition (color/border/width) is set inline because width animation is
+// direction-aware: instant on growth (no leading-digit clip), 150ms on shrink.
 const inputBaseClass =
   'h-11 rounded-md border border-[var(--color-border-default)] bg-transparent ps-2 pe-4 py-2 ' +
   'font-body font-medium text-lg leading-[21.78px] text-[var(--color-text-primary)] ' +
   'text-start outline-none ' +
   'placeholder:text-[var(--color-text-primary)] placeholder:opacity-40 ' +
   'caret-[var(--color-primary)] ' +
-  'transition-[color,border-color,width] duration-150 ease-out ' +
   'focus:border-[var(--color-primary-soft)] focus-visible:border-[var(--color-primary-soft)]'
 
 /**
@@ -66,7 +67,9 @@ export default function NumericInput({
   ...rest
 }: NumericInputProps) {
   const sizerRef = useRef<HTMLSpanElement>(null)
+  const previousWidth = useRef<number | null>(null)
   const [measuredWidth, setMeasuredWidth] = useState<number | null>(null)
+  const [widthTransition, setWidthTransition] = useState<string>('none')
 
   const formattedValue =
     value === null
@@ -80,17 +83,23 @@ export default function NumericInput({
   const sizerText = formattedValue || (placeholder ?? '')
 
   useLayoutEffect(() => {
-    if (sizerRef.current) {
-      // +4px safety buffer absorbs the caret pixel and sub-pixel rounding so
-      // the leading digit never gets scroll-clipped on focus.
-      setMeasuredWidth(sizerRef.current.offsetWidth + 4)
-    }
+    if (!sizerRef.current) return
+    // +4px safety buffer absorbs the caret pixel and sub-pixel rounding so
+    // the leading digit never gets scroll-clipped on focus.
+    const next = sizerRef.current.offsetWidth + 4
+    const prev = previousWidth.current
+    // Grow instantly to keep the value visible; shrink smoothly for visual
+    // continuity. Direction-agnostic, works in LTR and RTL.
+    setWidthTransition(prev !== null && next < prev ? 'width 150ms ease-out' : 'none')
+    setMeasuredWidth(next)
+    previousWidth.current = next
   }, [sizerText])
 
   const widthStyle: CSSProperties = {
     ...(measuredWidth !== null && { width: `${measuredWidth}px` }),
     ...(minWidthPx !== undefined && { minWidth: `${minWidthPx}px` }),
     ...(maxWidthPx !== undefined && { maxWidth: `${maxWidthPx}px` }),
+    transition: `color 150ms ease-out, border-color 150ms ease-out, ${widthTransition}`,
   }
 
   return (
