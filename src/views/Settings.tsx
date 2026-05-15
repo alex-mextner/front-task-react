@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import NumericInput from '@/components/NumericInput'
 import { useStore } from '@/store'
 
 export default function Settings() {
@@ -13,20 +14,23 @@ export default function Settings() {
 
       <h1 className="text-xl font-bold text-gray-700">Settings</h1>
 
-      <div>
-        <label htmlFor="min-age-input" className="block text-sm font-bold tracking-wide text-gray-700">
+      <div className="flex flex-col gap-3">
+        <label
+          htmlFor="min-age-input"
+          className="block text-sm font-bold tracking-wide"
+          style={{ fontFamily: 'var(--font-display)' }}
+        >
           MINIMUM AGE
         </label>
-        <div className="flex items-center gap-2">
-          <input
+        <div className="flex items-center gap-3">
+          <NumericInput
             id="min-age-input"
-            type="text"
             value={minimumAgeInMonths}
-            onChange={(e) => setMinimumAgeInMonths(Number(e.target.value) || 0)}
-            className="border border-gray-300 rounded px-2 py-1 text-lg outline-none"
+            onChange={setMinimumAgeInMonths}
             placeholder="0"
+            minWidthPx={72}
           />
-          <span className="text-gray-600">months</span>
+          <span className="text-gray-700">months</span>
         </div>
       </div>
     </div>

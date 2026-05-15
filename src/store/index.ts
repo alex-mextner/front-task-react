@@ -3,14 +3,14 @@ import { create } from 'zustand'
 export interface Person {
   id: number
   name: string
-  ageInHours: number
+  ageInHours: number | null
 }
 
 interface AppState {
   people: Person[]
-  minimumAgeInMonths: number
-  updatePersonAge: (id: number, ageInHours: number) => void
-  setMinimumAgeInMonths: (months: number) => void
+  minimumAgeInMonths: number | null
+  updatePersonAge: (id: number, ageInHours: number | null) => void
+  setMinimumAgeInMonths: (months: number | null) => void
 }
 
 export const useStore = create<AppState>((set) => ({
@@ -19,7 +19,7 @@ export const useStore = create<AppState>((set) => ({
     { id: 2, name: 'Bob', ageInHours: 350400 },
     { id: 3, name: 'Charlie', ageInHours: 219000 },
   ],
-  minimumAgeInMonths: 0,
+  minimumAgeInMonths: null,
   updatePersonAge: (id, ageInHours) =>
     set((state) => ({
       people: state.people.map((p) => (p.id === id ? { ...p, ageInHours } : p)),

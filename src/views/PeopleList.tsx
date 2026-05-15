@@ -6,7 +6,7 @@ export default function PeopleList() {
 
   const peopleWithYears = people.map((person) => ({
     ...person,
-    ageInYears: Math.floor(person.ageInHours / 8760),
+    ageInYears: person.ageInHours === null ? null : Math.floor(person.ageInHours / 8760),
   }))
 
   return (
@@ -27,7 +27,9 @@ export default function PeopleList() {
             />
             <div>
               <div className="font-bold text-gray-700">{person.name}</div>
-              <div className="text-gray-600">{person.ageInYears} years old</div>
+              <div className="text-gray-600">
+                {person.ageInYears === null ? 'age unknown' : `${person.ageInYears} years old`}
+              </div>
             </div>
           </Link>
         ))}

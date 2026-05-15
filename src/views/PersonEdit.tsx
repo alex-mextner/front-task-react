@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import NumericInput from '@/components/NumericInput'
 import { useStore } from '@/store'
 
 export default function PersonEdit() {
@@ -23,26 +24,29 @@ export default function PersonEdit() {
         &larr; Back
       </Link>
 
-      <div className="flex items-center gap-3">
+      <div className="group flex items-center gap-4">
         <img
           src={`${import.meta.env.BASE_URL}img.png`}
           alt={person.name}
-          className="w-14 h-14 rounded-full border-2 border-violet-500 object-cover"
+          className="w-20 h-20 rounded-full border-2 border-transparent group-focus-within:border-violet-600 object-cover transition-colors"
         />
-        <div>
-          <label htmlFor="hours-input" className="block text-sm font-bold tracking-wide text-gray-700">
+        <div className="flex flex-col gap-3">
+          <label
+            htmlFor="hours-input"
+            className="block text-sm tracking-wide text-gray-700 group-focus-within:text-violet-700"
+            style={{ fontFamily: 'var(--font-display)' }}
+          >
             {person.name.toUpperCase()} IS
           </label>
-          <div className="flex items-center gap-2">
-            <input
+          <div className="flex items-center gap-3">
+            <NumericInput
               id="hours-input"
-              type="text"
               value={person.ageInHours}
-              onChange={(e) => updatePersonAge(person.id, Number(e.target.value) || 0)}
-              className="border border-gray-300 rounded px-2 py-1 text-lg outline-none"
+              onChange={(hours) => updatePersonAge(person.id, hours)}
               placeholder="0"
+              minWidthPx={72}
             />
-            <span className="text-gray-600">hours old</span>
+            <span className="text-gray-700">hours old</span>
           </div>
         </div>
       </div>
