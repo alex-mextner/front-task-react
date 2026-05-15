@@ -23,6 +23,16 @@ export type NumericInputProps = Omit<
   ref?: Ref<HTMLInputElement>
 }
 
+const inputClass = [
+  'h-11 rounded-md border border-[var(--color-border-default)] bg-transparent',
+  'ps-2 pe-4 py-2',
+  'font-[var(--font-body)] font-medium text-lg leading-[21.78px] text-[var(--color-text-primary)]',
+  'text-start outline-none [field-sizing:content]',
+  'placeholder:text-[var(--color-text-primary)] placeholder:opacity-40',
+  'caret-[var(--color-primary)] transition-colors duration-150',
+  'focus:border-[var(--color-primary-soft)] focus-visible:border-[var(--color-primary-soft)]',
+].join(' ')
+
 /**
  * Numeric input with thousands-space grouping (`1442 -> 1 442`) and adaptive width.
  *
@@ -65,7 +75,7 @@ export default function NumericInput({
       }
       inputMode={allowDecimal ? 'decimal' : 'numeric'}
       style={{ ...widthStyle, ...style }}
-      className={['numeric-input', className].filter(Boolean).join(' ')}
+      className={[inputClass, className].filter(Boolean).join(' ')}
     />
   )
 }

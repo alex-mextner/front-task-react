@@ -194,14 +194,14 @@ describe('NumericInput', () => {
     expect(input).toHaveAttribute('inputmode', 'decimal')
   })
 
-  it('has class "numeric-input" on the rendered input', () => {
+  it('applies the field-sizing utility for adaptive width', () => {
     const { input } = setup(null)
-    expect(input).toHaveClass('numeric-input')
+    expect(input.className).toMatch(/\[field-sizing:content\]/)
   })
 
-  it('merges custom className with "numeric-input"', () => {
+  it('appends custom className', () => {
     const { input } = setup(null, { className: 'extra-class' })
-    expect(input).toHaveClass('numeric-input', 'extra-class')
+    expect(input).toHaveClass('extra-class')
   })
 
   it('applies minWidthPx as inline style.minWidth', () => {
