@@ -22,7 +22,12 @@ export default function PeopleList() {
 
   return (
     <div className="flex flex-col gap-4">
-      <h1 className="text-xl font-bold text-gray-700">People</h1>
+      <div className="flex items-baseline justify-between gap-4">
+        <h1 className="text-xl font-bold text-gray-700">People</h1>
+        <Link to="/settings" className="text-violet-600 hover:underline text-sm">
+          Filter
+        </Link>
+      </div>
 
       <div className="flex flex-col gap-3">
         {visible.map((person) => (
@@ -49,16 +54,12 @@ export default function PeopleList() {
           <p className="text-sm text-gray-500">
             No people match the minimum age filter.{' '}
             <Link to="/settings" className="text-violet-600 hover:underline">
-              Adjust in Settings
+              Adjust filter
             </Link>
             .
           </p>
         )}
       </div>
-
-      <Link to="/settings" className="text-violet-600 hover:underline text-sm">
-        Settings
-      </Link>
     </div>
   )
 }
