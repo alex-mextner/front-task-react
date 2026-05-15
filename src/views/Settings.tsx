@@ -9,7 +9,7 @@ export default function Settings() {
 
   return (
     <div className="flex flex-col gap-4">
-      <Link to="/" className="text-violet-600 hover:underline text-sm">
+      <Link to="/" className="text-link text-sm">
         &larr; Back
       </Link>
 

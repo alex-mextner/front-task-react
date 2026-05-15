@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import Avatar from '@/components/Avatar'
 import FieldLabel from '@/components/FieldLabel'
 import NumericInput from '@/components/NumericInput'
 import { useStore } from '@/store'
@@ -12,7 +13,7 @@ export default function PersonEdit() {
     return (
       <div>
         <p className="text-gray-600">Person not found</p>
-        <Link to="/" className="text-violet-600 hover:underline text-sm">
+        <Link to="/" className="text-link text-sm">
           Back to list
         </Link>
       </div>
@@ -21,23 +22,12 @@ export default function PersonEdit() {
 
   return (
     <div className="flex flex-col gap-4">
-      <Link to="/" className="text-violet-600 hover:underline text-sm">
+      <Link to="/" className="text-link text-sm">
         &larr; Back
       </Link>
 
       <div className="group flex items-center gap-4">
-        {person.avatarUrl ? (
-          <img
-            src={`${import.meta.env.BASE_URL}${person.avatarUrl}`}
-            alt={person.name}
-            className="w-20 h-20 rounded-full border-2 border-transparent group-focus-within:border-violet-600 object-cover transition-colors"
-          />
-        ) : (
-          <div
-            aria-hidden
-            className="w-20 h-20 rounded-full border-2 border-transparent group-focus-within:border-violet-600 bg-[var(--color-avatar-placeholder)] transition-colors"
-          />
-        )}
+        <Avatar person={person} size="lg" />
         <div className="flex flex-col gap-3">
           <FieldLabel
             htmlFor="hours-input"
