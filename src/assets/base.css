@@ -14,3 +14,29 @@
 body {
   font-family: var(--font-body);
 }
+
+@layer components {
+  /* In-flow text link. */
+  .text-link {
+    @apply text-violet-600 hover:underline;
+  }
+
+  /* Shared style for the numeric input and its invisible sizer span.
+     Both must use the exact same font/padding/border so the sizer's
+     measured width matches what the input will actually render. */
+  .numeric-input-base {
+    @apply h-11 rounded-md border border-[var(--color-border-default)] bg-transparent
+           ps-2 pe-4 py-2
+           font-body font-medium text-lg leading-[21.78px] text-[var(--color-text-primary)]
+           text-start outline-none
+           caret-[var(--color-primary)]
+           transition-[color,border-color,width] duration-150 ease-out;
+  }
+  .numeric-input-base::placeholder {
+    @apply text-[var(--color-text-primary)] opacity-40;
+  }
+  .numeric-input-base:focus,
+  .numeric-input-base:focus-visible {
+    @apply border-[var(--color-primary-soft)];
+  }
+}

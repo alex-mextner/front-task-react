@@ -35,14 +35,9 @@ export type NumericInputProps = Omit<
 // on Safari/iOS when the caret sits at the end (the browser scrolls the
 // content to keep the caret visible). A small lookahead buffer guarantees
 // the input is always slightly wider than its content, in any browser.
-const inputBaseClass =
-  'h-11 rounded-md border border-[var(--color-border-default)] bg-transparent ps-2 pe-4 py-2 ' +
-  'font-body font-medium text-lg leading-[21.78px] text-[var(--color-text-primary)] ' +
-  'text-start outline-none ' +
-  'placeholder:text-[var(--color-text-primary)] placeholder:opacity-40 ' +
-  'caret-[var(--color-primary)] ' +
-  'transition-[color,border-color,width] duration-150 ease-out ' +
-  'focus:border-[var(--color-primary-soft)] focus-visible:border-[var(--color-primary-soft)]'
+//
+// Shared base styles live in base.css as `.numeric-input-base`; the sizer
+// and the real <input> both use it to stay pixel-identical.
 
 /** Lookahead absorbs caret reserve (larger on iOS Safari) + sub-pixel rounding
  *  + ~one upcoming digit. 30px is safe on Chrome/Safari/Firefox desktop & mobile. */
@@ -101,7 +96,7 @@ export default function NumericInput({
       <span
         ref={sizerRef}
         aria-hidden
-        className={`${inputBaseClass} pointer-events-none invisible absolute -left-[9999px] top-0 whitespace-pre`}
+        className="numeric-input-base pointer-events-none invisible absolute -left-[9999px] top-0 whitespace-pre"
       >
         {sizerText || ' '}
       </span>
@@ -110,18 +105,14 @@ export default function NumericInput({
         placeholder={placeholder}
         getInputRef={ref}
         value={value === null ? '' : value}
-        onValueChange={({ floatValue }) =>
-          onChange(floatValue === undefined ? null : floatValue)
-        }
+        onValueChange={({ floatValue }) => onChange(floatValue === undefined ? null : floatValue)}
         thousandSeparator=" "
         decimalScale={allowDecimal ? undefined : 0}
         allowNegative={allowNegative}
-        isAllowed={({ value: rawString }) =>
-          rawString.replace(/\D/g, '').length <= maxDigits
-        }
+        isAllowed={({ value: rawString }) => rawString.replace(/\D/g, '').length <= maxDigits}
         inputMode={allowDecimal ? 'decimal' : 'numeric'}
         style={{ ...widthStyle, ...style }}
-        className={`${inputBaseClass} ${className ?? ''}`}
+        className={`numeric-input-base ${className ?? ''}`}
       />
     </>
   )
