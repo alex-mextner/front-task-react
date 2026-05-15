@@ -6,7 +6,9 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '')
-  const allowedHosts = env.VITE_DEV_ALLOWED_HOSTS?.split(',').map((s) => s.trim()).filter(Boolean)
+  const allowedHosts = env.VITE_DEV_ALLOWED_HOSTS?.split(',')
+    .map((s) => s.trim())
+    .filter(Boolean)
 
   return {
     base: '/front-task-react/',
@@ -17,7 +19,7 @@ export default defineConfig(({ mode }) => {
       },
     },
     build: {
-      outDir: 'docs',
+      outDir: 'dist',
       emptyOutDir: true,
     },
     ...(allowedHosts?.length ? { server: { allowedHosts } } : {}),
