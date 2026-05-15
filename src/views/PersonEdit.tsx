@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import FieldLabel from '@/components/FieldLabel'
 import NumericInput from '@/components/NumericInput'
 import { useStore } from '@/store'
 
@@ -38,12 +39,12 @@ export default function PersonEdit() {
           />
         )}
         <div className="flex flex-col gap-3">
-          <label
+          <FieldLabel
             htmlFor="hours-input"
-            className="field-label group-focus-within:text-[var(--color-primary)]"
+            className="group-focus-within:text-[var(--color-primary)]"
           >
             {person.name.toUpperCase()} IS
-          </label>
+          </FieldLabel>
           <div className="flex items-center gap-3">
             <NumericInput
               id="hours-input"

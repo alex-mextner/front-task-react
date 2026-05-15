@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom'
+import FieldLabel from '@/components/FieldLabel'
 import NumericInput from '@/components/NumericInput'
 import { useStore } from '@/store'
 
@@ -15,9 +16,7 @@ export default function Settings() {
       <h1 className="text-xl font-bold text-gray-700">Settings</h1>
 
       <div className="flex flex-col gap-3">
-        <label htmlFor="min-age-input" className="field-label">
-          MINIMUM AGE
-        </label>
+        <FieldLabel htmlFor="min-age-input">MINIMUM AGE</FieldLabel>
         <div className="flex items-center gap-3">
           <NumericInput
             id="min-age-input"
