@@ -25,11 +25,18 @@ export default function PersonEdit() {
       </Link>
 
       <div className="group flex items-center gap-4">
-        <img
-          src={`${import.meta.env.BASE_URL}${person.avatarUrl ?? 'img.png'}`}
-          alt={person.name}
-          className="w-20 h-20 rounded-full border-2 border-transparent group-focus-within:border-violet-600 object-cover transition-colors"
-        />
+        {person.avatarUrl ? (
+          <img
+            src={`${import.meta.env.BASE_URL}${person.avatarUrl}`}
+            alt={person.name}
+            className="w-20 h-20 rounded-full border-2 border-transparent group-focus-within:border-violet-600 object-cover transition-colors"
+          />
+        ) : (
+          <div
+            aria-hidden
+            className="w-20 h-20 rounded-full border-2 border-transparent group-focus-within:border-violet-600 bg-[var(--color-avatar-placeholder)] transition-colors"
+          />
+        )}
         <div className="flex flex-col gap-3">
           <label
             htmlFor="hours-input"

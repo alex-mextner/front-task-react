@@ -17,9 +17,9 @@ interface AppState {
 
 export const useStore = create<AppState>((set) => ({
   people: [
-    { id: 1, name: 'Alice', ageInHours: 262800, avatarUrl: 'avatars/3.png' },
-    { id: 2, name: 'Bob', ageInHours: 350400, avatarUrl: 'img.png' },
-    { id: 3, name: 'Charlie', ageInHours: 219000, avatarUrl: 'avatars/1.png' },
+    { id: 1, name: 'Alice', ageInHours: 262800, avatarUrl: 'avatars/alice.png' },
+    { id: 2, name: 'Bob', ageInHours: 350400, avatarUrl: 'avatars/bob.png' },
+    { id: 3, name: 'Charlie', ageInHours: 219000, avatarUrl: 'avatars/charlie.png' },
   ],
   minimumAgeInMonths: null,
   updatePersonAge: (id, ageInHours) =>

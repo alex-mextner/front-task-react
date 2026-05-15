@@ -36,11 +36,18 @@ export default function PeopleList() {
             to={`/person/${person.id}`}
             className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 hover:border-violet-500"
           >
-            <img
-              src={`${import.meta.env.BASE_URL}${person.avatarUrl ?? 'img.png'}`}
-              alt={person.name}
-              className="w-10 h-10 rounded-full border-2 border-violet-500 object-cover"
-            />
+            {person.avatarUrl ? (
+              <img
+                src={`${import.meta.env.BASE_URL}${person.avatarUrl}`}
+                alt={person.name}
+                className="w-10 h-10 rounded-full border-2 border-violet-500 object-cover"
+              />
+            ) : (
+              <div
+                aria-hidden
+                className="w-10 h-10 rounded-full border-2 border-violet-500 bg-[var(--color-avatar-placeholder)]"
+              />
+            )}
             <div>
               <div className="font-bold text-gray-700">{person.name}</div>
               <div className="text-gray-600">
