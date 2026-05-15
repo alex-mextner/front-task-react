@@ -81,7 +81,9 @@ export default function NumericInput({
 
   useLayoutEffect(() => {
     if (sizerRef.current) {
-      setMeasuredWidth(sizerRef.current.offsetWidth)
+      // +4px safety buffer absorbs the caret pixel and sub-pixel rounding so
+      // the leading digit never gets scroll-clipped on focus.
+      setMeasuredWidth(sizerRef.current.offsetWidth + 4)
     }
   }, [sizerText])
 
