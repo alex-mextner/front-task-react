@@ -36,6 +36,15 @@
   opacity: 0.4;
 }
 
+.field-label {
+  display: block;
+  font-family: var(--font-display);
+  font-size: 16px;
+  line-height: 15px;
+  letter-spacing: 0.02em;
+  color: var(--color-text-primary);
+}
+
 /* Focus: only color changes. Keeping border-width and padding stable across
    states avoids layout shift and the first-digit clipping that can appear
    during field-sizing reflow. */

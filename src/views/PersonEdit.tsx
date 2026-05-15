@@ -40,8 +40,7 @@ export default function PersonEdit() {
         <div className="flex flex-col gap-3">
           <label
             htmlFor="hours-input"
-            className="block text-base leading-[15px] tracking-[0.02em] text-[var(--color-text-primary)] group-focus-within:text-[var(--color-primary)]"
-            style={{ fontFamily: 'var(--font-display)' }}
+            className="field-label group-focus-within:text-[var(--color-primary)]"
           >
             {person.name.toUpperCase()} IS
           </label>

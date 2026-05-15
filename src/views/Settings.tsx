@@ -15,11 +15,7 @@ export default function Settings() {
       <h1 className="text-xl font-bold text-gray-700">Settings</h1>
 
       <div className="flex flex-col gap-3">
-        <label
-          htmlFor="min-age-input"
-          className="block text-base leading-[15px] tracking-[0.02em] text-[var(--color-text-primary)]"
-          style={{ fontFamily: 'var(--font-display)' }}
-        >
+        <label htmlFor="min-age-input" className="field-label">
           MINIMUM AGE
         </label>
         <div className="flex items-center gap-3">
