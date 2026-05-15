@@ -23,10 +23,11 @@ export type NumericInputProps = Omit<
   ref?: Ref<HTMLInputElement>
 }
 
-// Adaptive width is native: `field-sizing: content` makes the input grow to
-// its content's intrinsic size. `interpolate-size: allow-keywords` (set on
-// body) lets us animate the width transition between length and intrinsic
-// values. Pure CSS, no JS sizer, no scroll-clip on keystroke.
+// `field-sizing: content` makes the input grow to its content's intrinsic
+// size — pure CSS, no JS sizer. We don't animate width: that would require
+// `interpolate-size: allow-keywords` (Chrome 129+ only) and even there it
+// can momentarily scroll-clip the leading digit during the transition.
+// Width snaps instantly; only color/border-color animate.
 const inputBaseClass =
   '[field-sizing:content] h-11 rounded-md border border-[var(--color-border-default)] bg-transparent ' +
   'ps-2 pe-4 py-2 ' +
@@ -34,7 +35,7 @@ const inputBaseClass =
   'text-start outline-none ' +
   'placeholder:text-[var(--color-text-primary)] placeholder:opacity-40 ' +
   'caret-[var(--color-primary)] ' +
-  'transition-[color,border-color,width] duration-150 ease-out ' +
+  'transition-[color,border-color] duration-150 ease-out ' +
   'focus:border-[var(--color-primary-soft)] focus-visible:border-[var(--color-primary-soft)]'
 
 /**
