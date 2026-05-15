@@ -26,7 +26,7 @@ export default function PersonEdit() {
 
       <div className="group flex items-center gap-4">
         <img
-          src={`${import.meta.env.BASE_URL}img.png`}
+          src={`${import.meta.env.BASE_URL}${person.avatarUrl ?? 'img.png'}`}
           alt={person.name}
           className="w-20 h-20 rounded-full border-2 border-transparent group-focus-within:border-violet-600 object-cover transition-colors"
         />

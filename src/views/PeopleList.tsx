@@ -32,7 +32,7 @@ export default function PeopleList() {
             className="flex items-center gap-3 p-3 bg-white rounded-lg border border-gray-200 hover:border-violet-500"
           >
             <img
-              src={`${import.meta.env.BASE_URL}img.png`}
+              src={`${import.meta.env.BASE_URL}${person.avatarUrl ?? 'img.png'}`}
               alt={person.name}
               className="w-10 h-10 rounded-full border-2 border-violet-500 object-cover"
             />
