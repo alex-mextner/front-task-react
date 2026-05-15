@@ -13,7 +13,7 @@ export const HOURS_PER_MONTH = 24 * 30
  */
 export function isVisibleByAge(
   person: Pick<Person, 'ageInHours'>,
-  minimumAgeInMonths: number | null,
+  minimumAgeInMonths: number | null
 ): boolean {
   if (minimumAgeInMonths === null) return true
   if (person.ageInHours === null) return true

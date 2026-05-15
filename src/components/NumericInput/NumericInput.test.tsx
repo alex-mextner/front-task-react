@@ -7,10 +7,13 @@ import NumericInput from './NumericInput'
 
 afterEach(cleanup)
 
-const setup = (initial: number | null, overrides: Partial<React.ComponentProps<typeof NumericInput>> = {}) => {
+const setup = (
+  initial: number | null,
+  overrides: Partial<React.ComponentProps<typeof NumericInput>> = {}
+) => {
   const onChange = vi.fn<(v: number | null) => void>()
   const utils = render(
-    <NumericInput aria-label="amount" value={initial} onChange={onChange} {...overrides} />,
+    <NumericInput aria-label="amount" value={initial} onChange={onChange} {...overrides} />
   )
   return { onChange, input: screen.getByRole('textbox') as HTMLInputElement, ...utils }
 }
@@ -224,7 +227,7 @@ describe('NumericInput', () => {
     render(
       <div dir="rtl">
         <NumericInput aria-label="rtl-test" value={1000} onChange={() => {}} />
-      </div>,
+      </div>
     )
     const input = screen.getByLabelText('rtl-test') as HTMLInputElement
     expect(input.getAttribute('dir')).toBeNull()

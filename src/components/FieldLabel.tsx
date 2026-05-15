@@ -7,10 +7,7 @@ import type { ComponentPropsWithoutRef } from 'react'
  * Accepts all native `<label>` props; extra `className` is appended for
  * call-site state styling (e.g. `group-focus-within:text-...`).
  */
-export default function FieldLabel({
-  className,
-  ...rest
-}: ComponentPropsWithoutRef<'label'>) {
+export default function FieldLabel({ className, ...rest }: ComponentPropsWithoutRef<'label'>) {
   return (
     <label
       {...rest}
