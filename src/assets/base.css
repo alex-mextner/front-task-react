@@ -1,1 +1,48 @@
 @import 'tailwindcss';
+
+/* Design tokens — sourced from the Figma file. */
+@theme {
+  --color-primary: #3c06d6;
+  --color-primary-soft: #906fee;
+  --color-text-primary: #1e0d4c;
+  --color-border-default: #cfc9de;
+  --color-avatar-placeholder: #d9d9d9;
+  --font-display: 'Koulen', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+/* Padding-inline-end > start: reserves 16px for caret. Mirrors automatically in RTL. */
+.numeric-input {
+  field-sizing: content;
+  height: 44px;
+  padding-block: 8px;
+  padding-inline-start: 8px;
+  padding-inline-end: 16px;
+  border: 1px solid var(--color-border-default);
+  border-radius: 6px;
+  font-family: var(--font-body);
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 21.78px;
+  color: var(--color-text-primary);
+  text-align: start;
+  background: transparent;
+  outline: none;
+  transition: border-color 120ms ease;
+}
+
+.numeric-input::placeholder {
+  color: var(--color-text-primary);
+  opacity: 0.4;
+}
+
+/* Border 1px -> 1.5px on focus shifts content by 0.5px. Compensate via padding. */
+.numeric-input:focus,
+.numeric-input:focus-visible {
+  border-width: 1.5px;
+  border-color: var(--color-primary-soft);
+  caret-color: var(--color-primary);
+  padding-block: 7.5px;
+  padding-inline-start: 7.5px;
+  padding-inline-end: 15.5px;
+}
