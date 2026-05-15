@@ -1,20 +1,31 @@
 import { Link } from 'react-router-dom'
 import { useStore } from '@/store'
 
+const HOURS_PER_MONTH = 8760 / 12
+
 export default function PeopleList() {
   const people = useStore((state) => state.people)
+  const minimumAgeInMonths = useStore((state) => state.minimumAgeInMonths)
 
-  const peopleWithYears = people.map((person) => ({
-    ...person,
-    ageInYears: person.ageInHours === null ? null : Math.floor(person.ageInHours / 8760),
-  }))
+  const visible = people
+    .filter(
+      (person) =>
+        minimumAgeInMonths === null ||
+        person.ageInHours === null ||
+        person.ageInHours >= minimumAgeInMonths * HOURS_PER_MONTH,
+    )
+    .map((person) => ({
+      ...person,
+      ageInYears:
+        person.ageInHours === null ? null : Math.floor(person.ageInHours / 8760),
+    }))
 
   return (
     <div className="flex flex-col gap-4">
       <h1 className="text-xl font-bold text-gray-700">People</h1>
 
       <div className="flex flex-col gap-3">
-        {peopleWithYears.map((person) => (
+        {visible.map((person) => (
           <Link
             key={person.id}
             to={`/person/${person.id}`}
@@ -33,6 +44,16 @@ export default function PeopleList() {
             </div>
           </Link>
         ))}
+
+        {visible.length === 0 && (
+          <p className="text-sm text-gray-500">
+            No people match the minimum age filter.{' '}
+            <Link to="/settings" className="text-violet-600 hover:underline">
+              Adjust in Settings
+            </Link>
+            .
+          </p>
+        )}
       </div>
 
       <Link to="/settings" className="text-violet-600 hover:underline text-sm">
