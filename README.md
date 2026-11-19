@@ -44,3 +44,7 @@ npm run build    # → docs/ (GH Pages source)
 - `src/store/index.ts` — Zustand store.
 - `src/assets/base.css` — Tailwind v4 imports and Figma design tokens (`@theme`).
 - `docs/` — built site published via GitHub Pages.
+
+## Private-topology check
+
+CI runs `scripts/check-private-topology.sh` (plus gitleaks) on every pull request to keep private addresses, host names, MAC addresses and e-mails out of tracked files; use placeholders such as `<server-lan-ip>` or `<tailnet-host>` instead. To also catch your own machine names locally, list one regular expression per line in `~/.config/private-topology/denylist.txt` (never committed) and run the script before pushing.
